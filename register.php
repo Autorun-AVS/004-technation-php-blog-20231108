@@ -1,3 +1,34 @@
+<?php
+// database connection 
+require_once('includes/db-connect.php');
+
+if (isset($_POST['signIn'])) {
+  $firstName = $_POST["firstName"];
+  $lastName = $_POST["lastName"];
+  $email = $_POST["email"];
+  $password = $_POST["password"];
+
+
+  // TODO validation , password hashing, user alert massage
+
+
+  // insert in to database 
+  // SQL INSERT statement
+  $sql = "INSERT INTO users (firstName, lastName, email, password) VALUES ('$firstName', '$lastName', '$email' , '$password')";
+
+  if ($conn->query($sql) === TRUE) {
+    header("Location: login.php");
+  } else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }
+
+  // Close the database connection
+  $conn->close();
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
