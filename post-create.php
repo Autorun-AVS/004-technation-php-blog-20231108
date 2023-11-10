@@ -4,6 +4,8 @@
 <!-- head-element  -->
 <?php include 'partials/head-element.php' ?>
 
+<title>Create a Post | PHP Blog</title>
+
 <body class="d-flex flex-column h-100">
 
   <!-- color mode  -->
@@ -23,7 +25,7 @@
       <div class="col-md-6 ">
         <div class="card">
           <div class="card-body">
-          <h5 class="card-title">Create a post</h5>
+            <h5 class="card-title">Create a post</h5>
             <form>
               <div class="mb-3">
                 <label for="postImage" class="form-label">Upload Image:</label>

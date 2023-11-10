@@ -4,6 +4,8 @@
 <!-- head-element  -->
 <?php include 'partials/head-element.php' ?>
 
+<title>Post Details | PHP Blog</title>
+
 <body class="d-flex flex-column h-100">
 
   <!-- color mode  -->
