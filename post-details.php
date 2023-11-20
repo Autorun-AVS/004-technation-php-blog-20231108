@@ -23,6 +23,39 @@ $postImage = $row["postImage"];
 
 
 
+// if user submit the form correctly  
+if (isset($_POST['submitComment'])) {
+
+  // catch user id from session variable
+  $userId = $_SESSION['id'];
+  // receive data from user form
+
+  $comment = $_POST["comment"];
+
+  $sql = "INSERT INTO comments (userId, postId, comment) VALUES ('$userId', '$postId', '$comment')";
+
+  // if query success, then Redirect to login.php
+  if ($conn->query($sql) === TRUE) {
+    // Redirect to post-detail.php with postId that's hold postId from index.php page
+    header("Location: post-details.php?postId=" . $postId);
+  } else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+  }
+}
+
+
+
+
+// write SQL query as string
+// to retrieve multiple row data from joining to tables
+$sql = "SELECT * FROM comments JOIN users ON comments.userId = users.id WHERE postId = $postId";
+
+// Execute the query
+$results = $conn->query($sql);
+// fetch/catch all data in to categories variable 
+$allRows = $results->fetch_all(MYSQLI_ASSOC);
+
+
 
 ?>
 
@@ -66,13 +99,13 @@ $postImage = $row["postImage"];
 
   <section class="container my-3">
     <!-- post a comment  -->
-    <form class="clearfix">
+    <form class="clearfix" method="post">
       <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label fw-bold">Write Comment</label>
-        <textarea class="form-control bg-light" id="exampleFormControlTextarea1" rows="3"></textarea>
+        <label for="comment" class="form-label fw-bold">Write Comment</label>
+        <textarea class="form-control bg-light" id="comment" rows="3" name="comment"></textarea>
       </div>
 
-      <button type="submit" class="btn btn-primary float-end">comment</button>
+      <button type="submit" class="btn btn-primary float-end" name="submitComment">comment</button>
     </form>
 
 
@@ -80,37 +113,20 @@ $postImage = $row["postImage"];
     <div class="my-3 p-3 bg-body rounded shadow-sm ">
       <h6 class="border-bottom pb-2 mb-0">Comments</h6>
 
-      <div class="d-flex text-body-secondary pt-3">
-        <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
-          <title>Placeholder</title>
-          <rect width="100%" height="100%" fill="#007bff" /><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text>
-        </svg>
-        <p class="pb-3 mb-0 small lh-sm border-bottom">
-          <strong class="d-block text-gray-dark">@username</strong>
-          Some representative placeholder content, with some information about this user. Imagine this being some sort of status update, perhaps?
-        </p>
-      </div>
+      <!-- print received data from database table comments -->
+      <?php foreach ($allRows as $singleRow) : ?>
+        <div class="d-flex text-body-secondary pt-3">
+          <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#007bff" /><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text>
+          </svg>
+          <p class="pb-3 mb-0 small lh-sm border-bottom">
+            <strong class="d-block text-gray-dark">@<?= $singleRow['firstName'] ?></strong>
+            <?= $singleRow['comment'] ?>
+        </div>
+        <!-- loop end  -->
+      <?php endforeach; ?>
 
-      <div class="d-flex text-body-secondary pt-3">
-        <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
-          <title>Placeholder</title>
-          <rect width="100%" height="100%" fill="#e83e8c" /><text x="50%" y="50%" fill="#e83e8c" dy=".3em">32x32</text>
-        </svg>
-        <p class="pb-3 mb-0 small lh-sm border-bottom">
-          <strong class="d-block text-gray-dark">@username</strong>
-          Some more representative placeholder content, related to this other user. Another status update, perhaps.
-        </p>
-      </div>
-      <div class="d-flex text-body-secondary pt-3">
-        <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
-          <title>Placeholder</title>
-          <rect width="100%" height="100%" fill="#6f42c1" /><text x="50%" y="50%" fill="#6f42c1" dy=".3em">32x32</text>
-        </svg>
-        <p class="pb-3 mb-0 small lh-sm border-bottom">
-          <strong class="d-block text-gray-dark">@username</strong>
-          This user also gets some representative placeholder content. Maybe they did something interesting, and you really want to highlight this in the recent updates.
-        </p>
-      </div>
       <small class="d-block text-end mt-3">
         <a href="#">All comments</a>
       </small>
