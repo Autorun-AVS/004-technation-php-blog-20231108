@@ -4,7 +4,7 @@ session_start();
 require_once('includes/db-connection.php');
 
 // catch user id from session variable
-$postId = $_GET['postId'];
+$postId = $_GET["postId"];
 
 // to retrieve single row data from joining to tables
 $sql = "SELECT * FROM posts JOIN categories ON posts.categoryId = categories.id WHERE posts.postId = $postId";
@@ -15,10 +15,14 @@ $result = $conn->query($sql);
 // fetch/catch a single row from database/ from $result
 $row = $result->fetch_assoc();
 
-$categoryNameS = $row['categoryName'];
-$postTitleS = $row['postTitle'];
-$postDetailsS = $row['postDetails'];
-$postImage = $row['postImage'];
+$categoryNameS = $row["categoryName"];
+$postTitleS = $row["postTitle"];
+$postDetailsS = $row["postDetails"];
+$postImage = $row["postImage"];
+
+
+
+
 
 ?>
 
@@ -75,6 +79,7 @@ $postImage = $row['postImage'];
     <!-- comment list  -->
     <div class="my-3 p-3 bg-body rounded shadow-sm ">
       <h6 class="border-bottom pb-2 mb-0">Comments</h6>
+
       <div class="d-flex text-body-secondary pt-3">
         <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
           <title>Placeholder</title>
@@ -85,6 +90,7 @@ $postImage = $row['postImage'];
           Some representative placeholder content, with some information about this user. Imagine this being some sort of status update, perhaps?
         </p>
       </div>
+
       <div class="d-flex text-body-secondary pt-3">
         <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
           <title>Placeholder</title>

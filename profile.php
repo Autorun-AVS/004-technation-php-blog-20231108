@@ -4,7 +4,7 @@ session_start();
 require_once('includes/db-connection.php');
 
 // catch user id from session variable
-$userId = $_SESSION["id"];
+$userId = $_SESSION['id'];
 // write SQL query as string to retrieve data
 $sql = "SELECT * FROM users WHERE id = '$userId'";
 // Execute the query
@@ -14,20 +14,20 @@ $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
 // assign collected data form database, into separate variables
-$firstNameS = $row['firstName'];
-$lastNameS = $row['lastName'];
-$emailS = $row['email'];
-$passwordS = $row['password'];
+$firstNameS = $row["firstName"];
+$lastNameS = $row["lastName"];
+$emailS = $row["email"];
+$passwordS = $row["password"];
 $target_fileS = "";
-if (empty($row['image'])) {
+if (empty($row["image"])) {
   $target_fileS = "assets/images/no_image.png";
 } else {
-  $target_fileS =  $row['image'];
+  $target_fileS =  $row["image"];
 }
 
 
 
-if (isset($_POST['saveChange'])) {
+if (isset($_POST["saveChange"])) {
 
   // ------- image upload section start -------
   // Check if the form was submitted with a file upload
