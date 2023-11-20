@@ -1,3 +1,28 @@
+<?php
+session_start();
+// database connection 
+require_once('includes/db-connection.php');
+
+// catch user id from session variable
+$postId = $_GET['postId'];
+
+// to retrieve single row data from joining to tables
+$sql = "SELECT * FROM posts JOIN categories ON posts.categoryId = categories.id WHERE posts.postId = $postId";
+
+// Execute the query
+$result = $conn->query($sql);
+
+// fetch/catch a single row from database/ from $result
+$row = $result->fetch_assoc();
+
+$categoryNameS = $row['categoryName'];
+$postTitleS = $row['postTitle'];
+$postDetailsS = $row['postDetails'];
+$postImage = $row['postImage'];
+
+?>
+
+
 <!doctype html>
 <html lang="en" class="h-100" data-bs-theme="auto">
 
@@ -22,11 +47,12 @@
   <main class="container-fluid px-0">
     <div class="container">
       <div class="card mb-3">
-        <img src="assets/images/blake-wisz-Xn5FbEM9564-unsplash.jpg" class="card-img-top" alt="...">
+        <img src="<?= $postImage ?>" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+          <strong class="d-inline-block mb-2 text-primary-emphasis"><?= $categoryNameS ?></strong>
+          <h3 class="mb-0"><?= $postTitleS ?></h3>
+          <div class="mb-1 text-body-secondary">Nov 12</div>
+          <p class="card-text mb-auto"><?= $postDetailsS ?></p>
         </div>
       </div>
     </div>

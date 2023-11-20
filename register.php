@@ -1,8 +1,12 @@
 <?php
 // database connection 
-require_once('includes/db-connect.php');
+require_once('includes/db-connection.php');
 
-if (isset($_POST['signIn'])) {
+
+// if user submit the form correctly  
+if (isset($_POST['signUp'])) {
+
+  // receive data from user form
   $firstName = $_POST["firstName"];
   $lastName = $_POST["lastName"];
   $email = $_POST["email"];
@@ -16,6 +20,7 @@ if (isset($_POST['signIn'])) {
   // SQL INSERT statement
   $sql = "INSERT INTO users (firstName, lastName, email, password) VALUES ('$firstName', '$lastName', '$email' , '$password')";
 
+  // if query success, then Redirect to login.php
   if ($conn->query($sql) === TRUE) {
     header("Location: login.php");
   } else {
@@ -74,7 +79,7 @@ if (isset($_POST['signIn'])) {
       <div class="text-end my-3">
         Already register? <a href="login.php">Login</a>
       </div>
-      <button class="btn btn-primary w-100 py-2" type="submit" name="signIn">Sign in</button>
+      <button class="btn btn-primary w-100 py-2" type="submit" name="signUp">Sign Up</button>
 
 
       <p class="mt-5 mb-3 text-center text-body-secondary">&copy; 2022–2023</p>
