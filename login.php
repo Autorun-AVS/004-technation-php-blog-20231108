@@ -13,8 +13,11 @@ if (isset($_POST['signIn'])) {
   if ($result->num_rows == 1) {
     // fetch/catch row from database/from $result
     $row = $result->fetch_assoc();
-    // set id name into $_SESSION variable base on-> email and password
+    // set id name into $_SESSION variable 'id' base on-> email and password
     $_SESSION['id'] = $row['id'];
+    // set image path into $_SESSION variable 'img' base on-> email and password
+    $_SESSION['img'] = $row['image'];
+
     // Redirect to dashboard or home page
     header('Location: index.php');
   } else {

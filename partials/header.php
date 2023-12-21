@@ -1,4 +1,6 @@
-  <!-- header section  -->
+
+
+<!-- header section  -->
   <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -8,7 +10,7 @@
 
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ms-4">
-          <li><a href="#" class="border-0 px-2 btn btn-outline-primary">Home</a></li>
+          <li><a href="index.php" class="border-0 px-2 btn btn-outline-primary">Home</a></li>
           <li class="nav-item dropdown">
             <a class="border-0 dropdown-toggle btn btn-outline-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Category
@@ -28,28 +30,37 @@
           <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
         </form> -->
 
-        <div class="text-end">
-          <a href="login.php" class="btn btn-outline-primary me-2">Login</a>
-          <a href="register.php" class="btn btn-primary">Sign-up</a>
-        </div>
 
 
-        <div class="d-flex align-items-center">
-          <a href="post-create.php" class="btn btn-primary ms-2">Create Post</a>
+        <!-- !isset($_SESSION['id'])  to check if $_SESSION array key 'id' not set, then show login, sign-up -->
+        <?php if (!isset($_SESSION['id'])) {
 
-          <div class="flex-shrink-0 dropdown ms-2">
-            <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-            </a>
-            <ul class="dropdown-menu text-small shadow">
-              <li><a class="dropdown-item" href="profile.php">Profile</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Sign out</a></li>
-            </ul>
+        ?>
+          <div class="text-end">
+            <a href="login.php" class="btn btn-outline-primary me-2">Login</a>
+            <a href="register.php" class="btn btn-primary">Sign-up</a>
           </div>
-        </div>
+
+        <?php } else {
+        ?>
+          <!--if $_SESSION array key 'id' is set, then show create post, profile,Signout -->
+          <div class="d-flex align-items-center">
+            <a href="post-create.php" class="btn btn-primary ms-2">Create Post</a>
+
+            <div class="flex-shrink-0 dropdown ms-2">
+              <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="<?= $_SESSION['img'] ?>" alt="mdo" width="32" height="32" class="rounded-circle">
+              </a>
+              <ul class="dropdown-menu text-small shadow">
+                <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
+              </ul>
+            </div>
+          </div>
+        <?php } ?>
       </div>
     </div>
   </header>
